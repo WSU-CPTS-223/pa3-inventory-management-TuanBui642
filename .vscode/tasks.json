@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build hello",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+    "-std=c++11",
+    "-g",
+    "-O0",
+    "-fno-omit-frame-pointer",
+    "-fsanitize=address",
+    "-fsanitize=undefined",
+    "main.cpp",
+    "MainFunc.cpp",
+    "-o",
+    "main.exe"
+],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}
