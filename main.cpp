@@ -5,11 +5,15 @@
 */
 
 #include "MainHeader.hpp"
+//AVL_MAP_BST<int,ProductElements>;
 
 int main(int argc, char const *argv[])
 {
+    HashTable<ProductElements> Table(1000000);
+    AVL_MAP_BST<int,ProductElements> AVLTREE;
+
     string line;
-    bootStrap();
+    bootStrap(Table, AVLTREE);
     while (getline(cin, line) && line != ":quit")
     {
         if (validCommand(line))
@@ -20,7 +24,7 @@ int main(int argc, char const *argv[])
         {
             cout << "Command not supported. Enter :help for list of supported commands" << endl;
         }
-        cout << "> ";
+        
     }
     return 0;
 }

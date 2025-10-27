@@ -4,11 +4,6 @@
     Program: PA3, Inventory Management
 */
 
-#include <iostream>
-#include <string>
-
-using namespace std;
-
 #include "MainHeader.hpp"
 
 void printHelp()
@@ -47,13 +42,16 @@ void evalCommand(string line)
     }
 }
 
-void bootStrap()
-{
-    cout << "\n Welcome to Amazon Inventory Query System" << endl;
-    cout << " enter :quit to exit. or :help to list supported commands." << endl;
-    cout << "\n> ";
-    // TODO: Do all your bootstrap operations here
-    // example: reading from CSV and initializing the data structures
-    // Don't dump all code into this single function
-    // use proper programming practices
+int NumToASCII(string ConversionString){
+
+    int SumOfNumAscii = 0;
+
+    int SizeOfString = ConversionString.size(); //Gets the size of the string
+
+    for(int i = 0; i < SizeOfString; i++){ //Loops through the whole string
+
+        SumOfNumAscii += static_cast<int>(ConversionString.at(i)); //Converts the character to it's integer equivalent, and adds it to the sum
+    }
+
+    return SumOfNumAscii;
 }
