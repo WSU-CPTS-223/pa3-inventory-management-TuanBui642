@@ -25,6 +25,7 @@ using std::ofstream;
 using std::vector;
 using std::pair;
 using std::hash;
+using std::istringstream;
 
 template<typename T> //T = List/node so then we have a vector of linked list and int as index/key
 class HashTable{
@@ -32,8 +33,9 @@ class HashTable{
     public:
         HashTable(int size);
         void Insert(int IndexPlacement, const T& Data);
-        void Find(string TargetString);
+        bool Find(string TargetString);
         void ListInventoryCategory(string TargetCategory);
+        int GetSizeOfTable();
         
 
     private:
@@ -45,8 +47,6 @@ template<typename T>
 HashTable<T>::HashTable(int size){
 
     this->H_table.resize(size);
-    
-
 }
 
 template<typename T>
@@ -59,31 +59,37 @@ void HashTable<T>::Insert(int IndexPlacement, const T& Data){
 }
 
 template<typename T>
-void HashTable<T>::Find(string TargetString){
+bool HashTable<T>::Find(string TargetString){
 
-    int sizeoftable = this->H_table.size();
-
+    size_t sizeoftable = this->H_table.size();
+    size_t Hash2;
     hash<string> Hash;
-    int TargetIndex = static_cast<int>(Hash(TargetString)) % sizeoftable;
+    Hash2 = Hash(TargetString);
+    int TargetIndex = static_cast<int>(Hash2 % sizeoftable);
     bool foundState = false;
+    Node<T>* traversepointer = this->H_table[TargetIndex].GetHeadPointer();
 
-    if (this->H_table[TargetIndex].GetHeadPointer()->GetData().GetUniqueID() == TargetString){ //Sees if the first one is equivalent to target string
+    if (traversepointer == nullptr){ //Breaks here for not found inputs
+
+        cout << "Given target string of " << TargetString << "could not be found at " << TargetIndex << endl;
+        foundState = true;
+    }
+    else if (traversepointer->GetData().GetUniqueID() == TargetString){ //Sees if the first one is equivalent to target string
 
         cout << "Target String: " << TargetString << " has been found at index: " << TargetIndex << endl;
-        cout << this->H_table[TargetIndex].GetHeadPointer()->GetData() << endl;
+        cout << traversepointer->GetData() << endl;
         foundState = true;
     }
     else{
-
-        Node<T>* traversepointer = this->H_table[TargetIndex].GetHeadPointer();
 
         while(traversepointer != nullptr){
 
             if(traversepointer->GetData().GetUniqueID() == TargetString){ //Found in linked list container of that index
 
                  cout << "Target String: " << TargetString << " has been found at index: " << TargetIndex << endl;
-                 cout << this->H_table[TargetIndex].GetHeadPointer()->GetData() << endl;
+                 cout << traversepointer->GetData() << endl;
                  foundState = true;
+                 break;
             }
             else{
 
@@ -97,6 +103,8 @@ void HashTable<T>::Find(string TargetString){
         }
 
     }
+
+    return foundState;
 }
 
 
@@ -105,35 +113,43 @@ template<typename T>
 void HashTable<T>::ListInventoryCategory(string TargetCategory){
 
     int sizeoftable = this->H_table.size();
+    
 
     for (int i = 0; i < sizeoftable; i++){
 
-        if (this->H_table[i].GetHeadPointer() == nullptr){ //Empty Index at hashtable
-
-            //Skip
-        }
-        else{
-            Node<T>* traversepointer = this->H_table[i].GetHeadPointer();
+        Node<T>* traversepointer = this->H_table[i].GetHeadPointer();
 
             while(traversepointer != nullptr){
 
-                if(traversepointer->GetData().GetCategory() == TargetCategory){ //Found in linked list container of that index
+                string FullCatagoryOfItem = traversepointer->GetData().GetCategory();
+                istringstream FileFullCategoryofitem(FullCatagoryOfItem); //Same idea from parsing, convert back to file line like use for parsing
+                string Token;
 
-                    cout << "Category Data has been found at index: " << i << endl;
-                    cout << this->H_table[i].GetHeadPointer()->GetData() << endl;
-                }
-                 else{
+                while (getline(FileFullCategoryofitem, Token, '|')){ //Loops through the entire categories of the item parsing the individual categories between '|'
 
-                    traversepointer = traversepointer->GetNextPtr(); //Traverse further down
+                    if (Token.at(0) == ' '){ //Deletes front white space
+                        Token.erase(0,1);
+                    }
+                    if (Token.at(Token.size() - 1 ) == ' '){ //Deletes last white space
+                        Token.erase(Token.size() - 1 ,1);
+                    }
+                    
+                    if(Token == TargetCategory){
+
+                        cout << "Found!" << endl;
+                        cout << traversepointer->GetData() << endl;
+                    }
                 }
+                
+                traversepointer = traversepointer->GetNextPtr(); //Traverse further down   
             }
-        }
-
-
-
     }
+}
 
+template<typename T>
+int HashTable<T>::GetSizeOfTable(){
 
+    return this->H_table.size();
 
 }
 

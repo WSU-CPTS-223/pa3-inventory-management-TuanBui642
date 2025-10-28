@@ -8,6 +8,7 @@
 
 int main(int argc, char const *argv[])
 {
+    HashTable<ProductElements> TestTable(100);
     HashTable<ProductElements> Table(1000000);
     AVL_MAP_BST<int,ProductElements> AVLTREE;
 

@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <chrono>
+#include <cassert>
 
 #include "HashTable.hpp"
 #include "AVL_BST.hpp"
@@ -46,6 +47,11 @@ void printHelp();
 bool validCommand(string line);
 void evalCommand(string line, HashTable<ProductElements>& Table);
 int NumToASCII(string ConversionString);
+
+//Test Functions
+void TESTfind();
+void TESTinsert();
+void TestFindCategory();
 
 template<typename V, typename I> //T = Node, V = Value, K = Key
 void bootStrap(HashTable<ProductElements>& Table, AVL_MAP_BST<I,V>& AVLTREE)
@@ -85,12 +91,101 @@ void bootStrap(HashTable<ProductElements>& Table, AVL_MAP_BST<I,V>& AVLTREE)
             getline(StreamFileLine, InitImage, ',');            getline(StreamFileLine, Initvariants, ',');                 getline(StreamFileLine, Initsku, ',');
             getline(StreamFileLine, InitProductURL, ',');       getline(StreamFileLine, Initstock, ',');                    getline(StreamFileLine, InitProductDetails, ',');
             getline(StreamFileLine, InitColor, ',');            getline(StreamFileLine, InitIngredients, ',');              getline(StreamFileLine, InitDirectionToUse, ',');
-            getline(StreamFileLine, InitIsAmazonSeller, ',');   getline(StreamFileLine, InitSizeQuantityVarient, ',');      getline(StreamFileLine, InitProductDescription, ',');
+            getline(StreamFileLine, InitIsAmazonSeller, ',');   getline(StreamFileLine, InitSizeQuantityVarient, ',');      getline(StreamFileLine, InitProductDescription);
        
             //Initalized respective data classes for AVl tree and hashtable
             //Node<ProductElements>* ImportedDataNode = new Node<ProductElements>();
             ProductElements ImportedData;
-            ASCIINum = NumToASCII(InitUniqueID);
+            //ASCIINum = NumToASCII(InitUniqueID);
+            string NA = "NA";
+            if (InitQuantity == ""){
+                InitQuantity = NA;
+            }
+            if (InitProductSpecificiations == ""){
+                InitProductSpecificiations = NA;
+            }
+            if(InitProductDimensions == ""){
+                InitProductDimensions = NA;
+            }
+            if (Initsku == ""){
+                Initsku = NA;
+            }
+            if (InitProductDetails == ""){
+                InitProductDetails = NA;
+            }
+            if (InitDirectionToUse == ""){
+                InitDirectionToUse = NA;
+            }
+            if(InitProductDescription.empty()){
+                InitProductDescription = NA;
+            }
+            if(InitAboutProduct == ""){
+                InitAboutProduct = NA;
+            }
+            if (InitShippingWeight == ""){
+                InitShippingWeight = NA;
+            }
+            if (Initvariants == ""){
+                Initvariants = NA;
+            }
+            if (Initstock == ""){
+                Initstock = NA;
+            }
+            if(InitIngredients == ""){
+                InitIngredients = NA;
+            }
+            if (InitSizeQuantityVarient == ""){
+                InitSizeQuantityVarient = NA;
+            }
+            if(InitUniqueID == ""){
+                InitUniqueID = NA;
+            }
+            if (InitAsin == ""){
+                InitAsin = NA;
+            }
+            if (InitListPrice == ""){
+                InitListPrice = NA;
+            }
+            if (InitProductName == ""){
+                InitProductName = NA;
+            }
+            if(InitBrandName == ""){
+                InitBrandName = NA;
+            }
+            if (InitCategory == ""){
+                InitCategory = NA;
+            }
+            if (InitUpcEanCode == ""){
+                InitUpcEanCode = NA;
+            }
+            if (InitSellingPrice == ""){
+                InitSellingPrice = NA;
+            }
+            if(InitModelNumber == ""){
+                InitModelNumber = NA;
+            }
+            if (InitTechnicalDetails == ""){
+                InitTechnicalDetails = NA;
+            }
+            if (InitImage == ""){
+                InitImage = NA;
+            }
+            if (InitProductURL == ""){
+                InitProductURL = NA;
+            }
+            if(InitColor == ""){
+                InitColor = NA;
+            }
+            if (InitIsAmazonSeller == ""){
+                InitIsAmazonSeller = NA;
+            }
+
+
+            size_t sizeoftable = Table.GetSizeOfTable();
+            size_t Hash2;
+            hash<string> Hash;
+            Hash2 = Hash(InitUniqueID);
+            ASCIINum = static_cast<int>(Hash2 % sizeoftable);
 
             //Setting Data elements
             ImportedData.SetUniqueID(InitUniqueID);                 ImportedData.SetProductName(InitProductName);                   ImportedData.SetBrandName(InitBrandName);

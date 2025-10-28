@@ -41,13 +41,13 @@ void evalCommand(string line, HashTable<ProductElements>& Table){
         //cout << "YET TO IMPLEMENT!" << endl;
     }
     // if line starts with listInventory
-    else if (line.rfind("listInventory") == 0)
+    else if (line.rfind("listInventory", 0) == 0)
     {
         // Look up the appropriate datastructure to find all inventory belonging to a specific category
 
         string targetstring;
         cout << "Input Target Category: ";
-        cin >> targetstring;
+        getline(cin, targetstring); //Get's the whole line (Toys & Games, not Toys)
 
         Table.ListInventoryCategory(targetstring);
 

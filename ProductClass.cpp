@@ -269,7 +269,6 @@ ostream& operator<< (ostream& lhs, const ProductElements& rhs){
     lhs << endl;
     lhs << "Unique ID: " << rhs.UniqueID << endl;
     lhs << "Brand Name: " << rhs.BrandName << " Sell Price: " << rhs.SellingPrice << endl;
-    lhs << rhs.ProductDescription << endl;
 
     return lhs;
 }
