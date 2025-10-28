@@ -5,7 +5,6 @@
 */
 
 #include "MainHeader.hpp"
-//AVL_MAP_BST<int,ProductElements>;
 
 int main(int argc, char const *argv[])
 {
@@ -14,11 +13,12 @@ int main(int argc, char const *argv[])
 
     string line;
     bootStrap(Table, AVLTREE);
+
     while (getline(cin, line) && line != ":quit")
     {
         if (validCommand(line))
         {
-            evalCommand(line);
+            evalCommand(line, Table);
         }
         else
         {
