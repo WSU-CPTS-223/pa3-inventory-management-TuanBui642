@@ -58,7 +58,8 @@ void bootStrap(HashTable<ProductElements>& Table, AVL_MAP_BST<I,V>& AVLTREE)
 {
     //HashTable<ContainerList<ProductElements>> Table(1000000);
 
-    ifstream ReadFile("AmazonMarketingSample.csv");
+    //ifstream ReadFile("AmazonMarketingSample.csv");
+    ifstream ReadFile("Test.csv");
     //AVL_MAP_BST<int,ProductElements> AVLTREE;
 
     if(ReadFile.is_open() == true){ //File is open successfully
